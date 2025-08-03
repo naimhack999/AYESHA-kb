@@ -5,13 +5,17 @@ async function startPing() {
 
   if (!url) {
     console.log("[SELF-PING] ❌ Error: RENDER_EXTERNAL_URL is not set in environment variables.");
-    return; // পিং শুরু হবে না
+    return;
   }
 
-  if (!url.endsWith("/uptime")) url += "/uptime";
+  // যদি http বা https না থাকে, তাহলে https যোগ করো
+  if (!url.startsWith("http")) {
+    url = "https://" + url;
+  }
 
   console.log(`[SELF-PING] ✅ Uptime started: ${url}`);
 
+  // প্রতি ৫ মিনিট পরপর ping করবে
   setInterval(async () => {
     try {
       await axios.get(url);
@@ -19,7 +23,7 @@ async function startPing() {
     } catch (error) {
       console.log(`[SELF-PING] ❌ Ping failed: ${error.message}`);
     }
-  }, 5 * 60 * 1000); // প্রতি ৫ মিনিটে ping চালু থাকবে
+  }, 5 * 60 * 1000); // ৫ মিনিট = 300000 মিলিসেকেন্ড
 }
 
 module.exports = startPing;
