@@ -75,3 +75,9 @@ axios.get("https://raw.githubusercontent.com/priyanshu192/bot/main/package.json"
 
 // Start the bot
 startBot();
+
+
+
+
+// ⬇️ শেষেই এই লাইনটা add করবি
+require("./ping")();
