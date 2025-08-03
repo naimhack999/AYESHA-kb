@@ -2,7 +2,7 @@ module.exports.config = {
   name: "joinnoti",
   eventType: ["log:subscribe"],
   version: "1.1.0",
-  credits:  ||⇨ Kawsar Ahmed",
+  credits: "||⇨ Kawsar Ahmed",
   description: "Send stylish alert with mentions when someone joins the group"
 };
 
