@@ -8,18 +8,19 @@ async function startPing() {
     return;
   }
 
-  // যদি http বা https না থাকে, তাহলে https যোগ করো
+  // যদি http না থাকে, তাহলে https:// যোগ করো
   if (!url.startsWith("http")) {
     url = "https://" + url;
   }
 
-  console.log(`[SELF-PING] ✅ Uptime started: ${url}`);
+  // ✅ বট শুরু হলে একবারই লিংকটা দেখাবে
+  console.log(`\n[SELF-PING] link: ${url}\n`);
 
-  // প্রতি ৫ মিনিট পরপর ping করবে
+  // প্রতি ৫ মিনিটে ping
   setInterval(async () => {
     try {
       await axios.get(url);
-      console.log(`[SELF-PING] ✅ Ping success: ${url}`);
+      console.log(`[SELF-PING] Ping success: ${url}`);
     } catch (error) {
       console.log(`[SELF-PING] ❌ Ping failed: ${error.message}`);
     }
