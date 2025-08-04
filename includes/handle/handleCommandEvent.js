@@ -11,12 +11,11 @@ module.exports = function ({ api, models, Users, Threads, Currencies }) {
         }
 
         const { allowInbox } = global.config;
-        const { userBanned, threadBanned } = global.data;
         const { commands, eventRegistered } = global.client;
         var { senderID, threadID } = event;
         senderID = String(senderID);
         threadID = String(threadID);
-        if (userBanned.has(senderID) || threadBanned.has(threadID) || (allowInbox == false && senderID == threadID)) return;
+        if ((allowInbox == false && senderID == threadID)) return;
         for (const eventReg of eventRegistered) {
             const cmd = commands.get(eventReg);
             var getText2;

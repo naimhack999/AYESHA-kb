@@ -13,11 +13,12 @@ module.exports = function ({ api, models, Users, Threads, Currencies }) {
     const dateNow = Date.now();
     const time = moment.tz("Asia/Dhaka").format("HH:mm:ss DD/MM/YYYY");
     const { allowInbox, PREFIX, ADMINBOT, NDH, DeveloperMode, adminOnly, keyAdminOnly, ndhOnly, adminPaOnly } = global.config;
-    const { userBanned, threadBanned, threadInfo, threadData, commandBanned } = global.data;
+    const { threadInfo, threadData, commandBanned } = global.data;
     const { commands, cooldowns } = global.client;
     var { body = "", senderID, threadID, messageID } = event;
     senderID = String(senderID);
     threadID = String(threadID);
+    if ((allowInbox == false && senderID == threadID)) return;
     const threadSetting = threadData.get(threadID) || {};
 
     const prefixRegex = new RegExp(`^(<@!?${senderID}>|${escapeRegex((threadSetting.hasOwnProperty("PREFIX")) ? threadSetting.PREFIX : PREFIX)})\\s*`);

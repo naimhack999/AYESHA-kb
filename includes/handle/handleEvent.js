@@ -14,14 +14,12 @@ module.exports = function ({ api, models, Users, Threads, Currencies }) {
 
         const timeStart = Date.now();
         const time = moment.tz("Asia/Kolkata").format("HH:mm:ss L");
-        const { userBanned, threadBanned } = global.data;
         const { events } = global.client;
         const { allowInbox, DeveloperMode } = global.config;
         var { senderID, threadID } = event;
         senderID = String(senderID);
         threadID = String(threadID);
-        if (userBanned.has(senderID) || threadBanned.has(threadID) || (allowInbox == false && senderID == threadID)) return;
-
+        if ((allowInbox == false && senderID == threadID)) return;
         if (event.type == "change_thread_image") event.logMessageType = "change_thread_image";
 
         for (const [key, value] of events.entries()) {

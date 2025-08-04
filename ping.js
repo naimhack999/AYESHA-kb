@@ -1,30 +1,28 @@
 const axios = require("axios");
+const chalk = require("chalk"); // রঙের জন্য chalk ব্যবহার করা হয়েছে
 
 async function startPing() {
   let url = process.env.RENDER_EXTERNAL_URL;
 
   if (!url) {
-    console.log("[SELF-PING] ❌ Error: RENDER_EXTERNAL_URL is not set in environment variables.");
+    console.log(chalk.red("[SELF-PING] ❌ Error: RENDER_EXTERNAL_URL is not set in environment variables."));
     return;
   }
 
-  // যদি http না থাকে, তাহলে https:// যোগ করো
   if (!url.startsWith("http")) {
     url = "https://" + url;
   }
 
-  // ✅ বট শুরু হলে একবারই লিংকটা দেখাবে
-  console.log(`\n[SELF-PING] link: ${url}\n`);
+  console.log(chalk.blueBright(`\n[SELF-PING] 🔗 link: ${url}\n`));
 
-  // প্রতি ৫ মিনিটে ping
   setInterval(async () => {
     try {
       await axios.get(url);
-      console.log(`[SELF-PING] Ping success: ${url}`);
+      console.log(chalk.green(`[SELF-PING] Ping success: ${url}`));
     } catch (error) {
-      console.log(`[SELF-PING] ❌ Ping failed: ${error.message}`);
+      console.log(chalk.red(`[SELF-PING] ❌ Ping failed: ${error.message}`));
     }
-  }, 5 * 60 * 1000); // ৫ মিনিট = 300000 মিলিসেকেন্ড
+  }, 5 * 60 * 1000);
 }
 
 module.exports = startPing;

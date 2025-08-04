@@ -46,8 +46,6 @@ global.data = new Object({
     threadInfo: new Map(),
     threadData: new Map(),
     userName: new Map(),
-    userBanned: new Map(),
-    threadBanned: new Map(),
     commandBanned: new Map(),
     threadAllowNSFW: new Array(),
     allUserID: new Array(),

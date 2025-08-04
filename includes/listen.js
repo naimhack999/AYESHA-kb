@@ -24,12 +24,6 @@ module.exports = function ({ api, models }) {
         global.data.threadData.set(idThread, data['data'] || {});
         global.data.threadInfo.set(idThread, data.threadInfo || {});
 
-        if (data?.data?.banned)
-          global.data.threadBanned.set(idThread, {
-            reason: data.data.reason || '',
-            dateAdded: data.data.dateAdded || ''
-          });
-
         if (data?.data?.commandBanned?.length)
           global.data.commandBanned.set(idThread, data.data.commandBanned);
 
@@ -45,12 +39,6 @@ module.exports = function ({ api, models }) {
 
         if (dataU.name?.length)
           global.data.userName.set(idUsers, dataU.name);
-
-        if (dataU?.data?.banned == 1)
-          global.data.userBanned.set(idUsers, {
-            reason: dataU.data.reason || '',
-            dateAdded: dataU.data.dateAdded || ''
-          });
 
         if (dataU?.data?.commandBanned?.length)
           global.data.commandBanned.set(idUsers, dataU.data.commandBanned);
