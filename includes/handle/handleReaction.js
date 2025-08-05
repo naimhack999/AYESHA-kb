@@ -1,5 +1,4 @@
-stdout:
- module.exports = function ({ api, models, Users, Threads, Currencies }) {
+module.exports = function ({ api, models, Users, Threads, Currencies }) {
     return function ({ event }) {
         const { handleReaction, commands } = global.client;
         const { messageID, threadID, reaction } = event; // 'reaction' যোগ করা হয়েছে

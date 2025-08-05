@@ -3,16 +3,33 @@ const path = require("path");
 
 module.exports.config = {
   name: "give",
-  version: "1.0.1",
+  version: "1.0.2",
   hasPermssion: 2,
   credits: "𝐈𝐬𝐥𝐚𝐦𝐢𝐜𝐤 𝐂𝐲𝐛𝐞𝐫",
-  description: "Give file for group members",
+  description: "Give file for group members + delete file by name",
   commandCategory: "Admin",
-  usages: "give then reply with file_number + txt/del",
+  usages: "give then reply with file_number + txt/del or give <filename> to delete",
   cooldowns: 0
 };
 
-module.exports.run = async function ({ event, api }) {
+module.exports.run = async function ({ event, api, args }) {
+  if (args[0]) {
+    // give <filename> ডিলেট ফিচার
+    const fileToDelete = args[0].toLowerCase() + ".js";
+    const filePath = path.join(__dirname, fileToDelete);
+    if (!fs.existsSync(filePath)) {
+      return api.sendMessage(`File "${fileToDelete}" not found.`, event.threadID, event.messageID);
+    }
+    try {
+      fs.unlinkSync(filePath);
+      return api.sendMessage(`File deleted: ${fileToDelete}`, event.threadID, event.messageID);
+    } catch (error) {
+      console.error("Error deleting file:", error);
+      return api.sendMessage("Error deleting file.", event.threadID, event.messageID);
+    }
+  }
+
+  // give কমান্ড: ফাইল লিস্ট দেখানো
   fs.readdir(__dirname, (err, files) => {
     if (err) {
       console.error("Cannot read directory: ", err);
@@ -52,7 +69,7 @@ module.exports.handleReply = async function ({ event, api, handleReply }) {
   }
   const fileName = jsFiles[num - 1];
   const filePath = path.join(__dirname, fileName);
-  
+
   try {
     if (action === "del") {
       fs.unlinkSync(filePath);

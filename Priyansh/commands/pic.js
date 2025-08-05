@@ -1,39 +1,96 @@
 module.exports.config = {
- name: "pic",
- version: "1.0.0",
- hasPermssion: 0,
- credits: "Shaon Ahmed",
- description: "Image search",
- commandCategory: "Search",
- usages: "[Text]",
- cooldowns: 0,
+
+  name: "pic",
+  version: "1.0.0",
+  hasPermssion: 0,
+  credits: "𝐏𝐫𝐢𝐲𝐚𝐧𝐬𝐡 𝐑𝐚𝐣𝐩𝐮𝐭",
+  description: "Search an Image",
+  commandCategory: "pic",
+  usages: "imagesearch [text]",
+  cooldowns: 5,
+  dependencies: {
+
+     "axios":"",
+     "fs-extra":"",
+    "googlethis":"",
+        "cloudscraper":""
+  }
 };
-module.exports.run = async function({ api, event, args }) {
- const axios = require("axios");
- const fs = require("fs-extra");
- const request = require("request");
- const keySearch = args.join(" ");
- const apis = await axios.get('https://raw.githubusercontent.com/shaonproject/Shaon/main/api.json')
- const Shaon = apis.data.api
- 
- if(keySearch.includes("-") == false) return api.sendMessage('Please enter in the format, example: pic mia khalifa-10 (it depends on you how many images you want to appear in the result) credit by Shaon Ahmed', event.threadID, event.messageID)
- const keySearchs = keySearch.substr(0, keySearch.indexOf('-'))
- const numberSearch = keySearch.split("-").pop() || 6
- const res = await axios.get(`${Shaon}/pinterest?search=${encodeURIComponent(keySearchs)}`);
- const data = res.data.data;
- var num = 0;
- var imgData = [];
- for (var i = 0; i < parseInt(numberSearch); i++) {
- let path = __dirname + `/cache/${num+=1}.jpg`;
- let getDown = (await axios.get(`${data[i]}`, { responseType: 'arraybuffer' })).data;
- fs.writeFileSync(path, Buffer.from(getDown, 'utf-8'));
- imgData.push(fs.createReadStream(__dirname + `/cache/${num}.jpg`));
- }
- api.sendMessage({
- attachment: imgData,
- body: numberSearch + ' Searching 🔎 results for you. Your keyword: '+ keySearchs
- }, event.threadID, event.messageID)
- for (let ii = 1; ii < parseInt(numberSearch); ii++) {
- fs.unlinkSync(__dirname + `/cache/${ii}.jpg`)
- }
+
+
+
+
+module.exports.run = async ({matches, event, api, extra, args}) => {
+
+    const axios = global.nodemodule['axios'];
+    const google = global.nodemodule["googlethis"];
+const cloudscraper = global.nodemodule["cloudscraper"];
+const fs = global.nodemodule["fs"];
+try{
+var query = (event.type == "message_reply") ? event.messageReply.body : args.join(" ");
+  //let query = args.join(" ");
+  api.sendMessage(`🔎 Searching for ${query}...`, event.threadID, event.messageID);
+
+  let result = await google.image(query, {safe: false});
+  if(result.length === 0) {
+    api.sendMessage(`⚠️ Your image search did not return any result.`, event.threadID, event.messageID)
+    return;
+  }
+
+  let streams = [];
+  let counter = 0;
+
+  console.log(result)
+
+  for(let image of result) {
+    // Only show 6 images
+    if(counter >= 6)
+      break;
+
+    console.log(`${counter}: ${image.url}`);
+
+    // Ignore urls that does not ends with .jpg or .png
+    let url = image.url;
+    if(!url.endsWith(".jpg") && !url.endsWith(".png"))
+      continue;
+
+   let path = __dirname + `/cache/search-image-${counter}.jpg`;
+    let hasError = false;
+    await cloudscraper.get({uri: url, encoding: null})
+      .then((buffer) => fs.writeFileSync(path, buffer))
+      .catch((error) => {
+        console.log(error)
+        hasError = true;
+      });
+
+    if(hasError)
+      continue;
+
+    console.log(`Pushed to streams: ${path}`) ;
+    streams.push(fs.createReadStream(path).on("end", async () => {
+      if(fs.existsSync(path)) {
+        fs.unlink(path, (err) => {
+          if(err) return console.log(err);
+
+          console.log(`Deleted file: ${path}`);
+        });
+      }
+    }));
+
+    counter += 1;
+  }
+
+  api.sendMessage("⏳ Sending search result...", event.threadID, event.messageID)
+
+  let msg = {
+    body: `--------------------\nImage Search Result\n"${query}"\n\nFound: ${result.length} image${result.length > 1 ? 's' : ''}\nOnly showing: 6 images\n\n--------------------`,
+    attachment: streams
+  };
+
+  api.sendMessage(msg, event.threadID, event.messageID);
+}catch(e){
+  console.log("ERR: "+e)
+  api.sendMessage("⚠️ERR: "+e, event.threadID, event.messageID);
+}
 };
+
