@@ -50,10 +50,6 @@
     "checktt": {
         "maxColumn": 300
     },
-    "daily": {
-        "cooldownTime": 43200000,
-        "rewardCoin": 1000
-    },
     "diemdanh": {
         "cooldownTime": 3000000
     },
@@ -62,17 +58,6 @@
     },
     "instagram": {
         "APIKEY": "81b0466275mshb5265735e50299cp1b01c5jsn3e7f93112fd3"
-    },
-    "math": {
-        "WOLFRAM": "T8J8YV-H265UQ762K"
-    },
-    "menu": {
-        "autoUnsend": true,
-        "delayUnsend": 55
-    },
-    "rankup": {
-        "autoUnsend": true,
-        "unsendMessageAfter": 10
     },
     "rname": {
         "APIKEY": "mi451266190"
@@ -83,20 +68,11 @@
     "shortlink": {
         "bitlyAPI": "150ef1bc3af86500796d645c86f56766e4802566"
     },
-    "soundcloud": {
-        "SOUNDCLOUD_API": "M4TSyS6eV0AcMynXkA3qQASGcOFQTWub"
-    },
     "surprise": {
         "log": true,
         "out": "",
         "kickAll": "",
         "delThread": ""
-    },
-    "weather": {
-        "OPEN_WEATHER": "c4ef85b93982d6627681b056e24bd438"
-    },
-    "work": {
-        "cooldownTime": 1200000
     },
     "log": {
         "enable": true
@@ -107,9 +83,6 @@
     "help": {
         "autoUnsend": true,
         "delayUnsend": 120
-    },
-    "pokemon": {
-        "APIKEY": ""
     },
     "adminUpdate": {
         "autoUnsend": true,
@@ -128,30 +101,9 @@
         "APIKEY": "nhatdepzaivl"
     },
     "adminOnly": false,
-    "cavevip": {
-        "cooldownTime": 1200000
-    },
-    "lixi": {
-        "cooldownTime": 1100000
-    },
-    "sim": {
-        "APIKEY": "Priyansh_1234567890"
-    },
-    "lamviec": {
-        "cooldownTime": 1200000
-    },
-    "xidach": {
-        "maxPlayers": 5,
-        "normalWinBonus": 1,
-        "superWinBonus": 2,
-        "epicWinBonus": 4
-    },
+
     "tikvd": {
         "API_KEY": "mzkFree_X0IFR3FV0P97U4VL83F"
-    },
-    "loto": {
-        "maxPlayers": 10,
-        "getDelay": 8
     },
     "ndhOnly": false,
     "ifb": {
@@ -164,9 +116,6 @@
     },
     "shortvd": {
         "APIKEY": "XSemUp2Zv5"
-    },
-    "subnau": {
-        "APIKEY": ""
     },
     "video2": {
         "YOUTUBE_API": "AIzaSyAE4wH3OSfPUjJZTJvByQfXhEuaBMXjzAA"
@@ -205,28 +154,22 @@
     "mkt": {
         "APIKEY": "tdunguwu"
     },
-    "moon": {
-        "APIKEY": "tdunguwu"
-    },
     "cardinfo": {
         "APIKEY": "tuandz"
     },
-    "help3": {
+    "give": {
         "autoUnsend": true,
-        "delayUnsend": 300
+        "delayUnsend": 150
     },
     "job": {
         "cooldownTime": 5000
-    },
-    "fish": {
-        "cooldownTime": 1000000
     },
     "sing2": {
         "YOUTUBE_API": "AIzaSyBPdGN3eMhswfSKWoaomzdlEftf3NjV1gM",
         "SOUNDCLOUD_API": "M4TSyS6eV0AcMynXkA3qQASGcOFQTWub"
     },
     "god": {
-        "enable": false
+        "enable": true
     },
     "help2": {
         "autoUnsend": true,
