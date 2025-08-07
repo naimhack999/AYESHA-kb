@@ -1,37 +1,50 @@
-module.exports = {
-  config: {
-    name: "whitelist",
-    version: "1.0.0",
-    hasPermssion: 2,
-    credits: "Kawsar",
-    description: "Toggle whitelist user/thread system",
-    commandCategory: "system",
-    usages: "[user/thread] [on/off]",
-    cooldowns: 5
-  },
+module.exports = { config: { name: "wlt", version: "1.0.0", hasPermssion: 2, credits: "Kawsar", description: "Toggle whitelist settings & show status", commandCategory: "admin", usages: "whitelist [user/thread/status] [on/off/add/remove/view] [id]", cooldowns: 5 },
 
-  run: async function ({ api, event, args }) {
-    const { threadID, senderID, messageID } = event;
-    const adminList = global.config.ADMINBOT || [];
+run: async function ({ api, event, args }) { const { threadID, senderID, messageID } = event; const type = args[0]; const action = args[1]; const targetID = args[2] || senderID;
 
-    if (!adminList.includes(senderID)) {
-      return api.sendMessage("❌ এই কমান্ড চালাতে পারো না ভাই, Admin না!", threadID, messageID);
-    }
+if (!type || !["user", "thread", "status"].includes(type)) {
+  return api.sendMessage("Usage: whitelist [user/thread/status] [on/off/add/remove/view]", threadID, messageID);
+}
 
-    const type = args[0];
-    const value = args[1];
+if (type === "status") {
+  const userList = Array.from(global.whitelistUser);
+  const threadList = Array.from(global.whitelistThread);
+  return api.sendMessage(
+    `⚙️ Whitelist Status:
 
-    if (!["user", "thread"].includes(type) || !["on", "off"].includes(value)) {
-      return api.sendMessage(`⚙️ ব্যবহারঃ whitelist [user/thread] [on/off]`, threadID, messageID);
-    }
+✅ User Mode: ${global.whitelistUserToggle ? "ON" : "OFF"} 👤 Users: ${userList.length ? userList.join(", ") : "None"}
 
-    const newStatus = value === "on";
-    global.config.whitelist[type] = newStatus;
+✅ Thread Mode: ${global.whitelistThreadToggle ? "ON" : "OFF"} 🧵 Threads: ${threadList.length ? threadList.join(", ") : "None"}`, threadID, messageID ); }
 
-    return api.sendMessage(
-      `✅ Whitelist "${type}" এখন ${newStatus ? "চালু" : "বন্ধ"} করা হয়েছে।`,
-      threadID,
-      messageID
-    );
-  }
-};
+if (!action || !["on", "off", "add", "remove", "view"].includes(action)) {
+  return api.sendMessage("Invalid action. Use on/off/add/remove/view.", threadID, messageID);
+}
+
+// ON / OFF TOGGLE
+if (action === "on" || action === "off") {
+  const value = action === "on";
+  if (type === "user") global.whitelistUserToggle = value;
+  else global.whitelistThreadToggle = value;
+  return api.sendMessage(`${type} whitelist is now ${action.toUpperCase()}`, threadID, messageID);
+}
+
+// ADD / REMOVE
+const set = type === "user" ? global.whitelistUser : global.whitelistThread;
+
+if (action === "add") {
+  set.add(targetID);
+  return api.sendMessage(`${targetID} added to ${type} whitelist ✅`, threadID, messageID);
+}
+
+if (action === "remove") {
+  set.delete(targetID);
+  return api.sendMessage(`${targetID} removed from ${type} whitelist ❌`, threadID, messageID);
+}
+
+if (action === "view") {
+  const list = Array.from(set);
+  return api.sendMessage(
+    `${type === "user" ? "👤 User" : "🧵 Thread"} Whitelist:
+
+${list.length ? list.join("\n") : "None"}`, threadID, messageID ); } } };
+

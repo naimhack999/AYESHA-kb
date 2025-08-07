@@ -10,7 +10,8 @@ const listbuiltinModules = require("module").builtinModules;
 
 global.whitelistUser = new Set();
 global.whitelistThread = new Set();
-
+global.whitelistUserToggle = false;
+global.whitelistThreadToggle = false;
 
 global.client = new Object({
     commands: new Map(),
