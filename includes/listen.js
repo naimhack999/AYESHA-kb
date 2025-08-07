@@ -1,10 +1,11 @@
-
 module.exports = function ({ api, models }) {
   const fs = require("fs");
   const Users = require("./controllers/users")({ models, api });
   const Threads = require("./controllers/threads")({ models, api });
   const Currencies = require("./controllers/currencies")({ models });
   const logger = require("../utils/log.js");
+
+  const isBlocked = require("./wlt"); // ✅ whitelist checker import
 
   ///////////////////////////////////////
   //========= Load environment =========//
@@ -72,6 +73,8 @@ module.exports = function ({ api, models }) {
   /////////////////////////////////////////////////
 
   return (event) => {
+    if (isBlocked(event)) return; // ✅ whitelist block check (সবচেয়ে উপরে)
+
     switch (event.type) {
       case "message":
       case "message_reply":

@@ -59,23 +59,11 @@ function startBot(message) {
     });
 };
 
-////////////////////////////////////////////////
-//========= Check update from Github =========//
-////////////////////////////////////////////////
+//////////////////////////////////////
+//========= start the bot =========//
+////////////////////////////////////
 
-axios.get("https://raw.githubusercontent.com/priyanshu192/bot/main/package.json")
-    .then((res) => {
-        logger(res.data.name, "[ NAME ]");
-        logger(`Version: ${res.data.version}`, "[ VERSION ]");
-        logger(res.data.description, "[ DESCRIPTION ]");
-    })
-    .catch((err) => {
-        logger(`Failed to fetch update info: ${err.message}`, "[ Update Error ]");
-    });
-
-// Start the bot
 startBot();
-
 
 
 

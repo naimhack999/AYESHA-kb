@@ -8,6 +8,10 @@ const axios = require("axios");
 const listPackage = JSON.parse(readFileSync('./package.json')).dependencies;
 const listbuiltinModules = require("module").builtinModules;
 
+global.whitelistUser = new Set();
+global.whitelistThread = new Set();
+
+
 global.client = new Object({
     commands: new Map(),
     events: new Map(),

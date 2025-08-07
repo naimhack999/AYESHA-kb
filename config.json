@@ -47,6 +47,10 @@
     "cave": {
         "cooldownTime": 2000000
     },
+    "whitelist": {
+      "user": false,
+      "thread": false
+    },
     "checktt": {
         "maxColumn": 300
     },
