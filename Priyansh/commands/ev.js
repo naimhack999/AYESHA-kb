@@ -14,7 +14,7 @@ module.exports = {
 
   run: async function({ api, event, args }) {
     const content = args.join(" ");
-    if (!content) return api.sendMessage("⚠️ কোড দে!", event.threadID, event.messageID);
+    if (!content) return api.sendMessage("⚠️ কোড দেও!", event.threadID, event.messageID);
 
     try {
       let result = await eval(content);
