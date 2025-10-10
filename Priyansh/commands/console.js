@@ -12,7 +12,7 @@ module.exports.handleEvent = async function ({ api, args, Users, event, Threads,
     let { messageID, threadID, senderID, mentions } = event;
     const chalk = require('chalk');
      const moment = require("moment-timezone");
-var time= moment.tz("Asia/Kolkata").format("LLLL");   
+var time= moment.tz("Asia/Dhaka").format("LLLL");   
   const thread = global.data.threadData.get(event.threadID) || {};
   if (typeof thread["console"] !== "undefined" && thread["console"] == true) return;
   if (event.senderID == global.data.botID) return;
@@ -28,7 +28,7 @@ job[Math.floor(Math.random() * job.length)]
   var random4 = job[Math.floor(Math.random() * job.length)]
   var random5 = job[Math.floor(Math.random() * job.length)]
   var random6 = job[Math.floor(Math.random() * job.length)]
-    console.log(chalk.hex("#" + random)(`[💓]→ Group name: ${nameBox}`) + `\n` + chalk.hex("#" + random5)(`[🔎]→ Group ID: ${event.threadID}`) + `\n` + chalk.hex("#" + random6)(`[🔱]→ User name: ${nameUser}`) + `\n` + chalk.hex("#" + random1)(`[📝]→ User ID: ${event.senderID}`) + `\n` + chalk.hex("#" + random2)(`[📩]→ Content: ${msg}`) + `\n` + chalk.hex("#" + random3)(`[ ${time} ]`) + `\n` + chalk.hex("#" + random4)(`◆━━━━━━━━━◆PRIYANSH BOT🐧◆━━━━━━━━◆\n`)); 
+    console.log(chalk.hex("#" + random)(`[💓]→ Group name: ${nameBox}`) + `\n` + chalk.hex("#" + random5)(`[🔎]→ Group ID: ${event.threadID}`) + `\n` + chalk.hex("#" + random6)(`[🔱]→ User name: ${nameUser}`) + `\n` + chalk.hex("#" + random1)(`[📝]→ User ID: ${event.senderID}`) + `\n` + chalk.hex("#" + random2)(`[📩]→ Content: ${msg}`) + `\n` + chalk.hex("#" + random3)(`[ ${time} ]`) + `\n` + chalk.hex("#" + random4)(`◆━━━━━━━━━◆≛⃝𝙰𝚈𝙴𝙰𝙷𝙰 𝚀𝚄𝙴𝙴𝙽👑 BOT🐧◆━━━━━━━━◆\n`)); 
 }
 module.exports.languages = {
   "vi": {"on": "Bật","off": "Tắt","successText": "console thành công",},
