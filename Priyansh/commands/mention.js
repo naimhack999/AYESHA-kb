@@ -10,15 +10,15 @@ module.exports.config = {
 };
 
 module.exports.handleEvent = function({ api, event }) {
-  if (event.senderID !== "100067984247525") {  // তোমার বটের আইডি এখানে বসাও
-    var aid = ["100067984247525"];  // বটের আইডি
+  if (event.senderID !== "61577148331416") {  // তোমার বটের আইডি এখানে বসাও
+    var aid = ["61577148331416"];  // বটের আইডি
     for (const id of aid) {
       if (Object.keys(event.mentions).includes(id)) {
         var msg = [
           "ওই ব্যস্ত আছে, বলো কি বলবো?", 
-          "কি হয়েছে? বস্‌কে কেন ডেকে নিয়ে আসছো?", 
+          "কি হয়েছে? মেডামকে ডেকে নিয়ে আসবো?", 
           "সে হয়তো ব্যস্ত আছে", 
-          "কাউসার তো চলে গেছে"
+          "আয়েশা মেম তো চলে গেছে"
         ];
         return api.sendMessage({body: msg[Math.floor(Math.random()*msg.length)]}, event.threadID, event.messageID);
       }
