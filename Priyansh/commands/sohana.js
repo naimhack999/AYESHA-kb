@@ -30,7 +30,7 @@ function processQueue(api) {
     axios.get(`${API_URL}?message=${encodeURIComponent(prompt)}`)
       .then(response => {
         let reply = response.data.reply || "Hmm kichu bujhini... abar bolo na?";
-        reply = reply.replace(/(Sohana:|সোহানা:)\s*/gi, "");
+        reply = reply.replace(/(AYESHA:| আয়েশা:)\s*/gi, "");
         chatHistories[senderID].push(reply);
         api.sendMessage(reply, threadID, messageID);
       })
@@ -95,12 +95,12 @@ module.exports.handleEvent = async function ({ api, event }) {
 
   if (lowerBody === "acho") {
     botOn = true;
-    return api.sendMessage("Sohana is now ON globally!", threadID, messageID);
+    return api.sendMessage("≛⃝𝙰𝚈𝙴𝙰𝙷𝙰 𝚀𝚄𝙴𝙴𝙽👑 is now ON globally!", threadID, messageID);
   }
 
   if (lowerBody === "stop") {
     botOn = false;
-    return api.sendMessage("Sohana is now OFF globally!", threadID, messageID);
+    return api.sendMessage("≛⃝𝙰𝚈𝙴𝙰𝙷𝙰 𝚀𝚄𝙴𝙴𝙽👑 is now OFF globally!", threadID, messageID);
   }
 
   if (!botOn) return;
