@@ -19,7 +19,7 @@ module.exports.run = async function({ api, event }) {
             const timeouts = activeSessions.get(threadID);
             timeouts.forEach(clearTimeout);
             activeSessions.delete(threadID);
-            return api.sendMessage("চুদার সময় কেউ থামায় ভাই।", threadID);
+            return api.sendMessage("চুদার সময় কেউ থামায় Medam।", threadID);
         } else {
             return api.sendMessage("এখন তো কিছুই চলছে না বন্ধ করার মতো!", threadID);
         }
